@@ -1,0 +1,54 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+    <h1 class="my-4">
+        <small>Iteams List</small>
+    </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+    {% if object_list %}
+        <div class="col-12" style="overflow-x: scroll">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Iteam Code</th>
+                    <th scope="col">Iteam Name</th>
+                    <th scope="col">Messure</th>
+                    <th scope="col">Iteam Qty</th>
+                    <th scope="col">Supplier Name</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col"></th>
+                    <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for iteam in object_list %}
+                <tr>
+                    <td>{{ iteam.iteam_code }}</td>
+                    <td>{{ iteam.iteam_name }}</td>
+                    <td>{{ iteam.iteam_mes_para }}</td>
+                    <td>{{ iteam.iteam_qty }}</td>
+                    <td>{{ iteam.supplier_name }}</td>
+                    <td>{{ iteam.employee_name }}</td>
+                    <td><a href="{% url 'Iteams_view' iteam.id %}"><button type="button" class="btn btn-outline-primary btn-sm">View</button></a></td>
+                    <td><a href="{% url 'Iteams_delete' iteam.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-warning" role="alert">
+            There is no product, yet. But if you want, you can add from <a class="badge badge-info" href="{% url 'Iteams_new' %}"><strong>here.</strong></a>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock %}
